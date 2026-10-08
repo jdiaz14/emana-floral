@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<!-- Tienda generada con Harvys, asistente de e-commerce creado por el Profesor Harvey Sanabria -->
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Emana Floral — [POR COMPLETAR]</title>
+<meta name="description" content="Arreglos florales y regalos especiales: diseños con base, canastos, floreros, bouquets, cajas florales y kits de café.">
+<meta name="generator" content="Harvys — asistente de e-commerce del Profesor Harvey Sanabria">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body class="anim-baja tarj-borde modo-claro">
+
+<!-- MODAL PAGO -->
+<div class="modal-overlay" id="modal-pago" onclick="modalClickFuera(event)">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <div class="modal-head"><h3>Confirmar pago</h3><button class="modal-cerrar" onclick="cerrarModal()" aria-label="Cerrar">✕</button></div>
+    <div class="modal-body">
+      <div class="modal-total"><span class="tl">Total a pagar</span><span class="tm" id="modal-total-monto">$0</span></div>
+      <div class="pago-metodos" id="pago-metodos"></div>
+      <div class="pago-datos" id="pago-datos">
+        <div class="pd-label">Transferir a este número</div>
+        <div class="pd-numero" id="pd-numero"></div>
+        <div class="pd-nombre" id="pd-nombre"></div>
+        <button class="btn-copiar" onclick="copiarNumero()">📋 Copiar número</button>
+      </div>
+      <div class="pasos">
+        <div class="paso"><div class="paso-num">1</div><div class="paso-txt" id="paso-1"></div></div>
+        <div class="paso"><div class="paso-num">2</div><div class="paso-txt">Toca <strong>"Confirmar y enviar"</strong> — se abre WhatsApp con tu pedido</div></div>
+        <div class="paso"><div class="paso-num">3</div><div class="paso-txt" id="paso-3"></div></div>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <a href="#" target="_blank" rel="noopener" class="btn-wsp" onclick="return prepararWsp(this)">✅ Confirmar y enviar por WhatsApp</a>
+      <button class="btn-seguir" onclick="cerrarModal()">← Seguir comprando</button>
+    </div>
+  </div>
+</div>
+
+<div class="overlay" id="overlay" onclick="cerrarCarrito()"></div>
+
+<button class="carrito-fab" onclick="toggleCarrito()" id="fab" aria-label="Abrir carrito">🛒<span class="carrito-badge" id="badge">0</span></button>
+
+<div class="carrito-panel" id="panel-carrito">
+  <div class="panel-header"><h3>Tus flores y regalos</h3><button class="btn-cerrar" onclick="cerrarCarrito()" aria-label="Cerrar carrito">✕</button></div>
+  <ul id="lista-carrito"></ul>
+  <div class="panel-footer">
+    <div class="total-row"><span class="total-lbl">Total</span><span class="total-monto" id="total">$0</span></div>
+    <div class="panel-btns"><button class="btn-vaciar" onclick="vaciarCarrito()">Vaciar</button><button class="btn-pagar" onclick="pagar()">Coordinar pedido por WhatsApp</button></div>
+  </div>
+</div>
+
+<header class="hero hero-compacto">
+  <div class="hero-bg efecto-ninguno"></div>
+  <div class="hero-content">
+    <div>
+      <img src="img/449bb6ff-6a97-48f4-9e40-f446b5c40758-q78ti4.jpg" alt="Logo Emana Floral" class="hero-logo">
+      <div class="hero-badge">Flores y regalos · Bogotá</div>
+      <h1>Emana<span>Floral</span></h1>
+      <p class="hero-sub">Arreglos florales y detalles especiales para acompañar tus momentos más significativos.</p>
+      <a href="#catalogo" class="btn-hero">Explorar los detalles
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <div class="hero-stats"><div class="hero-stat"><div class="num">Bogotá</div><div class="lbl">Domicilios</div></div><div class="hero-stat"><div class="num">2 días</div><div class="lbl">Entrega aproximada</div></div><div class="hero-stat"><div class="num">A tu gusto</div><div class="lbl">Arreglos personalizados</div></div></div>
+    </div>
+    </div>
+  <div class="hero-scroll"><div></div></div>
+</header>
+
+<section class="banner-sec">
+  <div class="banner-glow"></div>
+  <div class="banner-content">
+    <div class="sec-label">Más que un regalo</div>
+    <h2>Un detalle para <em>crear recuerdos</em></h2>
+    <p>Descubre arreglos florales, regalos con dulces, tablas de quesos y kits de café. Realizamos domicilios en Bogotá y puedes recoger tu pedido personalmente. Tiempo de entrega aproximado: 2 días; coordina los detalles por WhatsApp.</p>
+    <div class="banner-chips"><span class="chip">Arreglos personalizados</span><span class="chip">Atención al detalle</span><span class="chip">Domicilios en Bogotá</span><span class="chip">Recogida presencial</span></div>
+  </div>
+</section>
+
+<div class="filtros-wrap" id="filtros-bar">
+  <div class="busqueda-wrap">
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z"/></svg>
+    <input type="text" id="buscador" placeholder="Buscar producto..." oninput="filtrarBusqueda()">
+  </div>
+</div>
+<section class="catalogo-wrap" id="catalogo">
+  <div class="catalogo-header">
+    <div><div class="sec-label">Flores y detalles</div><div class="sec-title">Encuentra tu regalo</div></div>
+    <div class="catalogo-count" id="cont-count"></div>
+  </div>
+  <div id="productos"></div>
+</section>
+
+<section class="beneficios-sec" id="beneficios">
+  <div class="sec-centro"><div class="sec-label">La esencia de Emana</div><div class="sec-title">Detalles que hacen la diferencia</div></div>
+  <div class="beneficios-grid">
+    <div class="bcard"><div class="bcard-icono">💝</div><h3>Más que un objeto, una experiencia</h3><p>Detalles pensados para hacer de tu regalo un momento especial.</p></div><div class="bcard"><div class="bcard-icono">🌷</div><h3>Productos de alta calidad</h3><p>La calidad es parte de cada arreglo y regalo de Emana Floral.</p></div><div class="bcard"><div class="bcard-icono">✨</div><h3>Atención al detalle</h3><p>Cuidamos los detalles que hacen especial cada presentación.</p></div><div class="bcard"><div class="bcard-icono">🎨</div><h3>Arreglos personalizados</h3><p>Consulta por WhatsApp cómo adaptar tu arreglo a la ocasión.</p></div>
+  </div>
+</section>
+
+<section class="recs-sec">
+  <div class="sec-label">Descubre el catálogo</div>
+  <div class="sec-title">Ideas para regalar</div>
+  <div class="recs-grid" id="recomendados"></div>
+</section>
+
+<section class="top-sec">
+  <div class="sec-label">Favoritos de las votaciones</div>
+  <div class="sec-title">Los detalles más votados</div>
+  <div class="top-grid" id="top"></div>
+</section>
+
+<section class="duelo-sec">
+  <div class="sec-label">Elige tu favorito</div>
+  <div class="sec-title">¿Qué detalle regalarías?</div>
+  <div class="duelo-arena" id="duelo"></div>
+  <p class="duelo-info">Selecciona el regalo que más te gusta para subirlo en el ranking.</p>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-marca"><h3>Emana Floral</h3><p>Arreglos florales y regalos especiales en Bogotá. Domicilios y recogida presencial, con entrega aproximada de 2 días.</p></div>
+    <div class="footer-col"><h4>Contacto</h4><ul><li><a href="https://wa.me/573185846022" target="_blank" rel="noopener">WhatsApp: +57 3185846022</a></li><li><a href="https://instagram.com/[POR COMPLETAR]" target="_blank" rel="noopener">Instagram: @[POR COMPLETAR]</a></li><li>Facebook: [POR COMPLETAR]</li><li>📍 Bogotá</li></ul></div>
+    <div class="footer-col"><h4>Pagos</h4><ul><li>Nequi</li><li>Daviplata</li></ul></div>
+    <div class="footer-col"><h4>Categorías</h4><ul><li>Diseños con base</li><li>Diseños en canasto</li><li>Diseños en florero</li><li>Bouquet</li><li>Cajas florales</li><li>Regalos con dulces y flores</li><li>Tablas de quesos y aperitivos</li><li>Kits de café / Regalos especiales</li></ul></div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Emana Floral — Todos los derechos reservados</span>
+    <span>Emana Floral · Flores y detalles para momentos especiales</span>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
